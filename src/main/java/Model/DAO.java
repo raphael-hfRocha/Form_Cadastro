@@ -3,6 +3,8 @@ package Model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class DAO {
 	/* Módulos de conexão */
@@ -65,5 +67,42 @@ public class DAO {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+	}
+
+	/* Método READ/CRUD */
+
+	public ArrayList<JavaBeans> listarUsuarios() {
+		ArrayList<JavaBeans> usuarios = new ArrayList<>();
+		String read = "SELECT * FROM Cadastro";
+
+		try {
+			Connection con = conectar();
+
+			PreparedStatement pst = con.prepareStatement(read);
+
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				
+				// variáveis de apoio que recebem os dados do banco
+
+				String id_user = rs.getString(1);
+				String nome = rs.getString(2);
+				String sobrenome = rs.getString(3);
+				String email = rs.getString(4);
+				String senha = rs.getString(5);
+
+				// populando o ArrayList
+
+				usuarios.add(new JavaBeans(id_user, nome, sobrenome, email, senha));
+			}
+
+			con.close();
+			return usuarios;
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
+
 	}
 }

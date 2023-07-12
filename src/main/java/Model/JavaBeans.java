@@ -1,7 +1,7 @@
 package Model;
 
 public class JavaBeans {
-	private int id_user;
+	private String id_user;
 	private String nome;
 	private String sobrenome;
 	private String email;
@@ -15,7 +15,7 @@ public class JavaBeans {
 	
 	
 
-	public JavaBeans(int id_user, String nome, String sobrenome, String email, String senha) {
+	public JavaBeans(String id_user, String nome, String sobrenome, String email, String senha) {
 		super();
 		this.id_user = id_user;
 		this.nome = nome;
@@ -25,11 +25,11 @@ public class JavaBeans {
 	}
 
 
-	public int getId_user() {
+	public String getId_user() {
 		return id_user;
 	}
 
-	public void setId_user(int id_user) {
+	public void setId_user(String id_user) {
 		this.id_user = id_user;
 	}
 

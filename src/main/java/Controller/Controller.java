@@ -1,12 +1,14 @@
 package Controller;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import Model.DAO;
 import Model.JavaBeans;
 
@@ -48,7 +50,29 @@ public class Controller extends HttpServlet {
 	// Listar usuarios
 	protected void usuarios(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("Registro.jsp");
+		
+		// Criando um objeto que irá receber os dados JavaBeans
+		
+		ArrayList<JavaBeans> lista = dao.listarUsuarios();
+		
+//		Encaminhar a lista ao documento na pasta Registro.jsp
+		
+		request.setAttribute("usuarios", lista);
+		RequestDispatcher rd = request.getRequestDispatcher("Registro.jsp");
+		rd.forward(request, response);
+		
+		
+//		//	Teste de recebimento da lista
+//		
+//		for (int i = 0; i < lista.size(); i++) {
+//			
+//			System.out.println(lista.get(i).getId_user());
+//			System.out.println(lista.get(i).getNome());
+//			System.out.println(lista.get(i).getSobrenome());
+//			System.out.println(lista.get(i).getEmail());
+//			System.out.println(lista.get(i).getSenha());
+//		}
+		
 	}
 
 	// Novo usuario
