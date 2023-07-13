@@ -46,7 +46,7 @@ public class DAO {
 	/* Método CREATE/CRUD */
 
 	public void inserirUsuario(JavaBeans cadastro) {
-		String create = "insert into Cadastro(nome, sobrenome, email, senha) values (?, ?, ?, ?)";
+		String create = "INSERT INTO Cadastro(nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)";
 		try {
 			Connection con = conectar();
 
@@ -104,5 +104,54 @@ public class DAO {
 			return null;
 		}
 
+	}
+	
+	/* Método UPDATE/CRUD */
+	
+	//Selecionando usuario
+	
+	public void selecionarUsuario(JavaBeans cadastro)
+	{
+		String read2 = "SELECT * FROM Cadastro WHERE id_user = ?";
+		
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(read2);
+			pst.setString(1, cadastro.getId_user());
+			ResultSet rs = pst.executeQuery();
+			while(rs.next())
+			{
+				//	Setando as variáveis do JavaBeans				
+				cadastro.setId_user(rs.getString(1));
+				cadastro.setNome(rs.getString(2));
+				cadastro.setSobrenome(rs.getString(3));
+				cadastro.setEmail(rs.getString(4));
+				cadastro.setSenha(rs.getString(5));
+			}
+			
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+	
+	//	Editar usuario
+	
+	public void alterarUsuario(JavaBeans cadastro)
+	{
+		String create = "UPDATE Cadastro SET nome=?, sobrenome=?, email=?, senha=? WHERE id_user=?";
+		try {
+			Connection con = conectar();
+			PreparedStatement pst = con.prepareStatement(create);
+			pst.setString(1, cadastro.getNome());
+			pst.setString(2, cadastro.getSobrenome());
+			pst.setString(3, cadastro.getEmail());
+			pst.setString(4, cadastro.getSenha());
+			pst.setString(5, cadastro.getId_user());
+			pst.executeUpdate();
+			con.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
