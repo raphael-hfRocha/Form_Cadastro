@@ -154,4 +154,21 @@ public class DAO {
 			System.out.println(e);
 		}
 	}
+	
+	
+	/* Método DELETE/CRUD */
+	
+	public void deletarUsuario(JavaBeans cadastro)
+	{
+		String delete = "DELETE FROM Cadastro WHERE id_user = ?";
+				try {
+					Connection con = conectar();
+					PreparedStatement pst = con.prepareStatement(delete);
+					pst.setString(1, cadastro.getId_user());
+					pst.executeUpdate();
+					con.close();
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+	}
 }

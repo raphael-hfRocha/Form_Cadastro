@@ -52,8 +52,8 @@ out.println(lista.get(i).getSenha());
 						<td><%=lista.get(i).getEmail()%></td>
 						<td><%=lista.get(i).getSenha()%></td>
 						<td>
-							<a style="text-decoration: none; background-color: white; color: black;" href="edit?id_user=<%=lista.get(i).getId_user()%>"><i class="bi bi-pencil-fill"></a>
-							<a style="text-decoration: none; background-color: white; color: black;" href=""><i class="bi bi-x-lg"></i></a>
+							<a style="text-decoration: none; background-color: white; color: black;" href="edit?id_user=<%=lista.get(i).getId_user()%>"><i class="bi bi-pencil-fill"></i></a>
+							<a style="text-decoration: none; background-color: white; color: black;" href="javascript: confirmar(<%=lista.get(i).getId_user()%>)"><i class="bi bi-x-lg"></i></a>
 						</td>
 					</tr>
 					<%
@@ -62,15 +62,12 @@ out.println(lista.get(i).getSenha());
 				</tbody>
 			</table>
 		</div>
-		<!-- <i class="bi bi-pencil-fill">
-		<i class="bi bi-x"></i>							
-		<i class="bi bi-x-lg"></i>
-		<i class="bi bi-x-circle"></i> -->
 
 		<link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
 			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 			crossorigin="anonymous">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+		<script src="scripts/Confirmador.js"></script>
 </body>
 </html>

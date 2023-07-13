@@ -16,7 +16,7 @@ import Model.JavaBeans;
 /**
  * Servlet implementation class Controller
  */
-@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/edit", "/update" })
+@WebServlet(urlPatterns = { "/Controller", "/main", "/insert", "/edit", "/update", "/delete" })
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -47,6 +47,8 @@ public class Controller extends HttpServlet {
 			listarUsuario(request, response);
 		} else if (action.equals("/update")) {
 			editarUsuario(request, response);
+		} else if (action.equals("/delete")) {
+			deletarUsuario(request, response);
 		} else {
 			response.sendRedirect("index.html");
 		}
@@ -138,28 +140,47 @@ public class Controller extends HttpServlet {
 
 	protected void editarUsuario(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//	teste de recebimento
+		// teste de recebimento
 //		System.out.println(request.getParameter("id_user"));
 //		System.out.println(request.getParameter("nome"));
 //		System.out.println(request.getParameter("sobrenome"));
 //		System.out.println(request.getParameter("email"));
 //		System.out.println(request.getParameter("senha"));
-		
-		
-		//	Setando as variáveis JavaBeans
-		
+
+		// Setando as variáveis JavaBeans
+
 		cadastro.setId_user(request.getParameter("id_user"));
 		cadastro.setNome(request.getParameter("nome"));
 		cadastro.setSobrenome(request.getParameter("sobrenome"));
 		cadastro.setEmail(request.getParameter("email"));
 		cadastro.setSenha(request.getParameter("senha"));
-		
-		//	Executando o método alterarUsuario
-		
+
+		// Executando o método alterarUsuario
+
 		dao.alterarUsuario(cadastro);
-		
-		//	Redirecionando para o documento Editar.jsp (atualizando alterações)
-		
+
+		// Redirecionando para o documento Editar.jsp (atualizando alterações)
+
+		response.sendRedirect("main");
+	}
+
+	// Excluir usuario
+
+	protected void deletarUsuario(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String id_user = request.getParameter("id_user");
+
+		// Teste recebimento do id do usuario DELETE
+//				System.out.println(id_user);
+
+		cadastro.setId_user(id_user);
+
+		// Executando o método deletarUsuario (DAO) passando o objeto cadastro
+
+		dao.deletarUsuario(cadastro);
+
+		// Redirecionando para o documento Registro.jsp
+
 		response.sendRedirect("main");
 	}
 }
